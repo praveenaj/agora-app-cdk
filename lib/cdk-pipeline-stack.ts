@@ -41,7 +41,7 @@ import { ShellScriptAction } from '@aws-cdk/pipelines';
    });
    // This is where we add the application stages
    const preprod = new CdkpipelinesDemoStage(this, 'PreProd', {
-    env: { account: '506223296078', region: 'us-west-2' }
+    env: { account: '506223296078', region: 'us-east-1' }
   });
 
   // put validations for the stages 
@@ -61,7 +61,7 @@ import { ShellScriptAction } from '@aws-cdk/pipelines';
   }));
 
   pipeline.addApplicationStage(new CdkpipelinesDemoStage(this, 'Prod', {
-    env: { account: '506223296078', region: 'us-west-2' }
+    env: { account: '506223296078', region: 'us-east-1' }
   }));
   }
 }
