@@ -1,11 +1,11 @@
-import * as cdk from '@aws-cdk/core';
 import * as lambda from '@aws-cdk/aws-lambda';
 import * as apigw from '@aws-cdk/aws-apigateway';
-import { IResource, LambdaIntegration, MockIntegration, PassthroughBehavior, RestApi } from '@aws-cdk/aws-apigateway';
-import { Resource } from '@aws-cdk/core';
+import { CfnOutput, Construct, Stack, StackProps } from '@aws-cdk/core';
+export class HelloCdkStack extends Stack {
 
-export class HelloCdkStack extends cdk.Stack {
-  constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
+  public readonly urlOutput: CfnOutput;
+
+  constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
     const lambdaFunction = new lambda.Function(this, 'HelloCdkLambda', {
@@ -40,10 +40,9 @@ export class HelloCdkStack extends cdk.Stack {
       .addMethod('POST', new apigw.LambdaIntegration(lambdaFunction));
 
     
-    new cdk.CfnOutput(this, 'ApiUrl', {
-      value: api.url ?? "something went wrong ",
+    this.urlOutput = new CfnOutput(this, 'Url', {
+      value: api.url,
     });
-
 
   }
 

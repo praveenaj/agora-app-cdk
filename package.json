@@ -22,10 +22,16 @@
   },
   "dependencies": {
     "@aws-cdk/aws-apigateway": "^1.128.0",
+    "@aws-cdk/aws-codepipeline": "^1.128.0",
+    "@aws-cdk/aws-codepipeline-actions": "^1.128.0",
+    "@aws-cdk/aws-lambda": "^1.128.0",
     "@aws-cdk/aws-sns": "1.128.0",
     "@aws-cdk/aws-sns-subscriptions": "1.128.0",
     "@aws-cdk/aws-sqs": "1.128.0",
     "@aws-cdk/core": "1.128.0",
-    "axios": "^0.23.0"
+    "@aws-cdk/pipelines": "^1.128.0",
+    "@types/aws-lambda": "^8.10.84",
+    "axios": "^0.23.0",
+    "source-map-support": "^0.5.20"
   }
 }
