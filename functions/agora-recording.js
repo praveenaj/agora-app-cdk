@@ -27,7 +27,7 @@ exports.handler = async function (event) {
                     let requestBody = JSON.parse(event.body);
 
                     acquire = await axios.post(
-                        `https://api.agora.io/v1/apps/${process.env.AGORAAPPID}/cloud_recording/acquire`,
+                        `https://api.agora.io/v1/apps/${appID}/cloud_recording/acquire`,
                         {
                             cname: requestBody.channel,
                             uid: `${requestBody.uid}`,
