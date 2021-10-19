@@ -11,32 +11,19 @@ on:
   workflow_dispatch:
 
 jobs:
-  aws_cdk:
+  deploy:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2      
+      # Build your application here
+      - run: echo 'Build and tests passed!'
 
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: cdk deploy
-        uses: youyo/aws-cdk-github-actions@v1
-        with:
-          cdk_subcommand: 'deploy'
-          cdk_stack: 'stack1'
-          cdk_args: '--require-approval never'
-          actions_comment: false
+      # Deploy stacks
+      - name: cdk deploy all stacks
+        uses: docker://kikemnzz/automate-cdk-github-action-kmzz:v1.0.0
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: 'us-west-2'
-
-      - name: cdk synth
-        uses: youyo/aws-cdk-github-actions@v2
+          AWS_DEFAULT_REGION: 'us-east-1'
         with:
-          cdk_subcommand: 'synth'
-          cdk_version: '1.128.0'
-
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: 'us-west-2'
+          cdk_action: 'deploy --verbose --require-approval never'
