@@ -16,13 +16,11 @@ export class HelloCdkStack extends Stack {
       },
     });
     
-    const api = new apigw.LambdaRestApi(this, 'HelloCdkApi', {
+    const api = new apigw.RestApi(this, 'HelloCdkApi', {
       defaultCorsPreflightOptions: {
         allowOrigins: apigw.Cors.ALL_ORIGINS,
         allowMethods: apigw.Cors.ALL_METHODS,
       },
-      handler: lambdaFunction,
-      proxy: false,
     });
 
     
