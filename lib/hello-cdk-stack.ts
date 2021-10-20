@@ -16,16 +16,17 @@ export class HelloCdkStack extends Stack {
       },
     });
     
-    const api = new apigw.RestApi(this, 'HelloCdkApi', {
+    const api = new apigw.LambdaRestApi(this, 'HelloCdkApi', {
+      handler: lambdaFunction,
+      proxy: false,
       defaultCorsPreflightOptions: {
         allowOrigins: apigw.Cors.ALL_ORIGINS,
+        allowMethods: apigw.Cors.ALL_METHODS,
+        allowHeaders: ['*']
       },
     });
 
-    const integration = new apigw.LambdaIntegration(lambdaFunction);
-
-    api.root.addMethod('ANY', integration);
-
+    
     api.root.resourceForPath('/acquire')
       .addMethod('POST', new apigw.LambdaIntegration(lambdaFunction));
 
