@@ -21,7 +21,8 @@ export class HelloCdkStack extends Stack {
         allowOrigins: apigw.Cors.ALL_ORIGINS,
         allowMethods: apigw.Cors.ALL_METHODS,
       },
-      handler : lambdaFunction,
+      handler: lambdaFunction,
+      proxy: false,
     });
 
     
