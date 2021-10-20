@@ -24,11 +24,6 @@ export class HelloCdkStack extends Stack {
       }
     });
 
-    
-    const integration = new apigw.LambdaIntegration(lambdaFunction);
-
-    api.root.addMethod('ANY', integration);
-
     api.root.addMethod('OPTIONS', new apigw.MockIntegration({
       integrationResponses: [{
       statusCode: '200',
