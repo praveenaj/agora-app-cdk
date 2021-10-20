@@ -1,7 +1,5 @@
 import * as lambda from '@aws-cdk/aws-lambda';
 import * as apigw from '@aws-cdk/aws-apigateway';
-import * as NodejsLambda from '@aws-cdk/aws-lambda-nodejs';
-import * as path from 'path';
 import { CfnOutput, Construct, Stack, StackProps } from '@aws-cdk/core';
 export class HelloCdkStack extends Stack {
 
@@ -10,12 +8,11 @@ export class HelloCdkStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    const lambdaFunction = new NodejsLambda.NodejsFunction(this, 'HelloCdkLambda', {
-      entry: 'functions/agora-recording.js',
+    const lambdaFunction = new lambda.Function(this, 'HelloCdkLambda', {
+      runtime: lambda.Runtime.NODEJS_12_X,
+      code: lambda.Code.fromAsset('functions'),
       handler: 'agora-recording.handler',
-      runtime: lambda.Runtime.NODEJS_14_X,
-      bundling: {
-        nodeModules: ['axios'],
+      environment: {
       },
     });
     
@@ -24,7 +21,7 @@ export class HelloCdkStack extends Stack {
         allowOrigins: apigw.Cors.ALL_ORIGINS
       }
     });
-    console.log("as")
+
     const integration = new apigw.LambdaIntegration(lambdaFunction);
 
     api.root.addMethod('ANY', integration);
