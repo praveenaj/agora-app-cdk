@@ -7,7 +7,7 @@ exports.handler = async function (event) {
     const Authorization = `Basic ${Buffer.from(
         `${process.env.AGORAKEY}:${process.env.AGORASECRET}`
     ).toString("base64")}`;
-
+    console.log("as");
 
     let body;
     let statusCode = 200;
