@@ -17,14 +17,14 @@ export class HelloCdkStack extends Stack {
     });
     
     const api = new apigw.RestApi(this, 'HelloCdkApi', {
+      defaultCorsPreflightOptions: {
+        allowOrigins: apigw.Cors.ALL_ORIGINS,
+      },
     });
 
-    api.root.addCorsPreflight({
-      allowHeaders: ['Content-Type', 'X-Amz-Date', 'Authorization', 'X-Api-Key'],
-      allowMethods: ['OPTIONS', 'GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
-      allowCredentials: true,
-      allowOrigins: ['http://localhost:3000'],
-    });
+    const integration = new apigw.LambdaIntegration(lambdaFunction);
+
+    api.root.addMethod('ANY', integration);
 
     api.root.resourceForPath('/acquire')
       .addMethod('POST', new apigw.LambdaIntegration(lambdaFunction));
