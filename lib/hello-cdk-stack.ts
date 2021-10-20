@@ -17,10 +17,6 @@ export class HelloCdkStack extends Stack {
     });
     
     const api = new apigw.RestApi(this, 'HelloCdkApi', {
-      defaultCorsPreflightOptions: {
-        allowOrigins: apigw.Cors.ALL_ORIGINS,
-        allowMethods: apigw.Cors.ALL_METHODS,
-      },
     });
 
     api.root.addCorsPreflight({
@@ -29,7 +25,7 @@ export class HelloCdkStack extends Stack {
       allowCredentials: true,
       allowOrigins: ['http://localhost:3000'],
     });
-    
+
     api.root.resourceForPath('/acquire')
       .addMethod('POST', new apigw.LambdaIntegration(lambdaFunction));
 
