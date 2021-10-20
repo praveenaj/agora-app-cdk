@@ -17,7 +17,7 @@ export class CdkpipelinesDemoPipelineStack extends Stack {
 
     const pipeline = new CdkPipeline(this, 'Pipeline', {
       // The pipeline name
-      pipelineName: 'AgoraPipeline',
+      pipelineName: 'AgoraPipelinev1',
       cloudAssemblyArtifact,
 
       // Where the source can be found
