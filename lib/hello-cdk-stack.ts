@@ -11,7 +11,7 @@ export class HelloCdkStack extends Stack {
     super(scope, id, props);
 
     const lambdaFunction = new NodejsLambda.NodejsFunction(this, 'HelloCdkLambda', {
-      entry: path.join(__dirname, 'functions/agora-recording.js'),
+      entry: 'functions/agora-recording.js',
       handler: 'agora-recording.handler',
       runtime: lambda.Runtime.NODEJS_14_X,
       bundling: {
