@@ -10,7 +10,7 @@ export class HelloCdkStack extends Stack {
 
     const lambdaFunction = new lambda.Function(this, 'HelloCdkLambda', {
       runtime: lambda.Runtime.NODEJS_12_X,
-      code: lambda.Code.fromAsset('functions'),
+      code: new lambda.AssetCode('functions'),
       handler: 'agora-recording.handler',
       environment: {
       },
