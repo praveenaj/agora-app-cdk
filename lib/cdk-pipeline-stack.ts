@@ -40,28 +40,28 @@ import { ShellScriptAction } from '@aws-cdk/pipelines';
       }),
    });
    // This is where we add the application stages
-   const preprod = new CdkpipelinesDemoStage(this, 'PreProd', {
-    env: { account: '506223296078', region: 'us-east-1' }
-  });
+  //  const preprod = new CdkpipelinesDemoStage(this, 'PreProd', {
+  //   env: { account: '506223296078', region: 'us-east-1' }
+  // });
 
-  // put validations for the stages 
-  const preprodStage = pipeline.addApplicationStage(preprod);
+  // // put validations for the stages 
+  // const preprodStage = pipeline.addApplicationStage(preprod);
   
-  preprodStage.addActions(new ShellScriptAction({
-    actionName: 'TestService',
-    useOutputs: {
-      // Get the stack Output from the Stage and make it available in
-      // the shell script as $ENDPOINT_URL.
-      ENDPOINT_URL: pipeline.stackOutput(preprod.urlOutput),
-    },
-    commands: [
-      // Use 'curl' to GET the given URL and fail if it returns an error
-      'curl -Ssf $ENDPOINT_URL',
-    ],
-  }));
-
-  pipeline.addApplicationStage(new CdkpipelinesDemoStage(this, 'Prod', {
-    env: { account: '506223296078', region: 'us-east-1' }
-  }));
-  }
+  // preprodStage.addActions(new ShellScriptAction({
+  //   actionName: 'TestService',
+  //   useOutputs: {
+  //     // Get the stack Output from the Stage and make it available in
+  //     // the shell script as $ENDPOINT_URL.
+  //     ENDPOINT_URL: pipeline.stackOutput(preprod.urlOutput),
+  //   },
+  //   commands: [
+  //     // Use 'curl' to GET the given URL and fail if it returns an error
+  //     'curl -Ssf $ENDPOINT_URL',
+  //   ],
+  // }));
+  // console.log("as");
+  // pipeline.addApplicationStage(new CdkpipelinesDemoStage(this, 'Prod', {
+  //   env: { account: '506223296078', region: 'us-east-1' }
+  // }));
+  // }
 }
