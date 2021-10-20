@@ -23,6 +23,12 @@ export class HelloCdkStack extends Stack {
       },
     });
 
+    api.root.addCorsPreflight({
+      allowHeaders: ['Content-Type', 'X-Amz-Date', 'Authorization', 'X-Api-Key'],
+      allowMethods: ['OPTIONS', 'GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+      allowCredentials: true,
+      allowOrigins: ['http://localhost:3000'],
+    });
     
     api.root.resourceForPath('/acquire')
       .addMethod('POST', new apigw.LambdaIntegration(lambdaFunction));
