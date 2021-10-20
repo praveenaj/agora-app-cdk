@@ -15,13 +15,13 @@ export class HelloCdkStack extends Stack {
       environment: {
       },
     });
-
     
-    
-    const api = new apigw.RestApi(this, 'HelloCdkApi', {
-      defaultCorsPreflightOptions: {
-        allowOrigins: apigw.Cors.ALL_ORIGINS
-      }
+    const api = new apigw.LambdaRestApi(this, 'HelloCdkApi', {
+      // defaultCorsPreflightOptions: {
+      //   allowOrigins: apigw.Cors.ALL_ORIGINS,
+      //   allowMethods: apigw.Cors.ALL_METHODS
+      // },
+      handler : lambdaFunction,
     });
 
     api.root.addMethod('OPTIONS', new apigw.MockIntegration({
