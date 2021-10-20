@@ -17,40 +17,14 @@ export class HelloCdkStack extends Stack {
     });
     
     const api = new apigw.LambdaRestApi(this, 'HelloCdkApi', {
-      // defaultCorsPreflightOptions: {
-      //   allowOrigins: apigw.Cors.ALL_ORIGINS,
-      //   allowMethods: apigw.Cors.ALL_METHODS
-      // },
+      defaultCorsPreflightOptions: {
+        allowOrigins: apigw.Cors.ALL_ORIGINS,
+        allowMethods: apigw.Cors.ALL_METHODS,
+      },
       handler : lambdaFunction,
     });
 
-    api.root.addMethod('OPTIONS', new apigw.MockIntegration({
-      integrationResponses: [{
-      statusCode: '200',
-      responseParameters: {
-          'method.response.header.Access-Control-Allow-Headers': "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
-          'method.response.header.Access-Control-Allow-Origin': "'*'",
-          'method.response.header.Access-Control-Allow-Credentials': "'false'",
-          'method.response.header.Access-Control-Allow-Methods': "'OPTIONS,GET,PUT,POST,DELETE'",
-      },
-      }],
-      passthroughBehavior: apigw.PassthroughBehavior.NEVER,
-      requestTemplates: {
-      "application/json": "{\"statusCode\": 200}"
-      },
-  }), {
-      methodResponses: [{
-      statusCode: '200',
-      responseParameters: {
-          'method.response.header.Access-Control-Allow-Headers': true,
-          'method.response.header.Access-Control-Allow-Methods': true,
-          'method.response.header.Access-Control-Allow-Credentials': true,
-          'method.response.header.Access-Control-Allow-Origin': true,
-      },  
-      }]
-  })
     
-
     api.root.resourceForPath('/acquire')
       .addMethod('POST', new apigw.LambdaIntegration(lambdaFunction));
 
