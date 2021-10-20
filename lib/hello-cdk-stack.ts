@@ -24,7 +24,7 @@ export class HelloCdkStack extends Stack {
         allowOrigins: apigw.Cors.ALL_ORIGINS
       }
     });
-
+    console.log("as")
     const integration = new apigw.LambdaIntegration(lambdaFunction);
 
     api.root.addMethod('ANY', integration);
