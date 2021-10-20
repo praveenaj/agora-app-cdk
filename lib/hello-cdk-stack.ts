@@ -70,7 +70,3 @@ export class HelloCdkStack extends Stack {
   }
 
 }
-
-function addCorsOptions(apiResource: apigw.IResource) {
-
-}

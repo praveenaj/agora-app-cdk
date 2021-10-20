@@ -15,7 +15,7 @@ exports.handler = async function (event) {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Credentials": true,
-        "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
+        "Access-Control-Allow-Methods": "DELETE, POST, GET",
         "Access-Control-Allow-Headers": "*",
     };
 
