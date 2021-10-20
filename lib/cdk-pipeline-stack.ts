@@ -8,20 +8,20 @@ import { ShellScriptAction } from '@aws-cdk/pipelines';
 /**
  * The stack that defines the application pipeline
  */
- export class CdkpipelinesDemoPipelineStack extends Stack {
-    constructor(scope: Construct, id: string, props?: StackProps) {
-      super(scope, id, props);
+export class CdkpipelinesDemoPipelineStack extends Stack {
+  constructor(scope: Construct, id: string, props?: StackProps) {
+    super(scope, id, props);
 
-      const sourceArtifact = new codepipeline.Artifact();
-      const cloudAssemblyArtifact = new codepipeline.Artifact();
+    const sourceArtifact = new codepipeline.Artifact();
+    const cloudAssemblyArtifact = new codepipeline.Artifact();
 
-      const pipeline = new CdkPipeline(this, 'Pipeline', {
-        // The pipeline name
-        pipelineName: 'AgoraPipeline',
-        cloudAssemblyArtifact,
+    const pipeline = new CdkPipeline(this, 'Pipeline', {
+      // The pipeline name
+      pipelineName: 'AgoraPipeline',
+      cloudAssemblyArtifact,
 
-        // Where the source can be found
-        sourceAction: new codepipeline_actions.GitHubSourceAction({
+      // Where the source can be found
+      sourceAction: new codepipeline_actions.GitHubSourceAction({
         actionName: 'GitHub',
         output: sourceArtifact,
         oauthToken: SecretValue.secretsManager('github-token-cdk-agora'),
@@ -38,30 +38,31 @@ import { ShellScriptAction } from '@aws-cdk/pipelines';
         // We need a build step to compile the TypeScript Lambda
         buildCommand: 'npm run build'
       }),
-   });
-   // This is where we add the application stages
-  //  const preprod = new CdkpipelinesDemoStage(this, 'PreProd', {
-  //   env: { account: '506223296078', region: 'us-east-1' }
-  // });
+    });
+    // This is where we add the application stages
+    //  const preprod = new CdkpipelinesDemoStage(this, 'PreProd', {
+    //   env: { account: '506223296078', region: 'us-east-1' }
+    // });
 
-  // // put validations for the stages 
-  // const preprodStage = pipeline.addApplicationStage(preprod);
+    // // put validations for the stages 
+    // const preprodStage = pipeline.addApplicationStage(preprod);
   
-  // preprodStage.addActions(new ShellScriptAction({
-  //   actionName: 'TestService',
-  //   useOutputs: {
-  //     // Get the stack Output from the Stage and make it available in
-  //     // the shell script as $ENDPOINT_URL.
-  //     ENDPOINT_URL: pipeline.stackOutput(preprod.urlOutput),
-  //   },
-  //   commands: [
-  //     // Use 'curl' to GET the given URL and fail if it returns an error
-  //     'curl -Ssf $ENDPOINT_URL',
-  //   ],
-  // }));
-  // console.log("as");
-  // pipeline.addApplicationStage(new CdkpipelinesDemoStage(this, 'Prod', {
-  //   env: { account: '506223296078', region: 'us-east-1' }
-  // }));
-  // }
+    // preprodStage.addActions(new ShellScriptAction({
+    //   actionName: 'TestService',
+    //   useOutputs: {
+    //     // Get the stack Output from the Stage and make it available in
+    //     // the shell script as $ENDPOINT_URL.
+    //     ENDPOINT_URL: pipeline.stackOutput(preprod.urlOutput),
+    //   },
+    //   commands: [
+    //     // Use 'curl' to GET the given URL and fail if it returns an error
+    //     'curl -Ssf $ENDPOINT_URL',
+    //   ],
+    // }));
+    // console.log("as");
+    // pipeline.addApplicationStage(new CdkpipelinesDemoStage(this, 'Prod', {
+    //   env: { account: '506223296078', region: 'us-east-1' }
+    // }));
+    // }
+  }
 }
