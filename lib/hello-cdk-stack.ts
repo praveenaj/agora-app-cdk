@@ -43,8 +43,5 @@ export class HelloCdkStack extends cdk.Stack {
     new cdk.CfnOutput(this, 'ApiUrl', {
       value: api.url ?? "something went wrong ",
     });
-
-
   }
-
 }
