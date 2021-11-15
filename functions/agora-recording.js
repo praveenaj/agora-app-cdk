@@ -79,8 +79,11 @@ exports.handler = async function (event) {
                             },
                             { headers: { Authorization} }
                         );
-
-                        body = start.data;              
+                    if (start.data) {
+                        body = start.data;
+                    } else {
+                        body = start;
+                    }
                         break;
            
                     } else {
